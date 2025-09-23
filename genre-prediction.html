@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predicting Music Genre & Decade from Lyrics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .back-link {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            display: inline-block;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s ease;
+        }
+
+        .back-link:hover {
+            border-bottom-color: #666;
+        }
+
+        .content {
+            margin-top: 2rem;
+        }
+
+        .content p {
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+
+        .content ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .content li {
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">← back</a>
+    
+    <h1>Predicting Music Genre & Decade from Lyrics</h1>
+    
+    <div class="content">
+        <p><strong>Machine Learning | NLP | Data Mining</strong></p>
+        
+        <p>
+            For my senior project at the University of Waterloo, I explored whether song lyrics alone could 
+            reveal hidden characteristics of music — specifically, a track’s <strong>genre</strong> and 
+            <strong>decade of release</strong>.
+        </p>
+
+        <ul>
+            <li>Collected and cleaned lyrics for <strong>18,000+ Billboard Top 100 songs</strong> using the Genius API, with tokenization, stopword removal, lemmatization, and stemming.</li>
+            <li>Engineered features with <strong>TF-IDF</strong> on a vocabulary of ~20,000 unique words.</li>
+            <li>Trained <strong>logistic regression models</strong> to classify both genre and decade.</li>
+            <li>Experimented with <strong>unsupervised clustering</strong> to detect patterns in lyrical diversity across time.</li>
+        </ul>
+
+        <h3>Key Outcomes</h3>
+        <ul>
+            <li>Lyrics predicted <strong>decade</strong> more accurately (84%) than <strong>genre</strong> (76%).</li>
+            <li>Distinctive vocabulary gave rap songs the highest accuracy (91%), while country terms like "truck," "beer," and "cowboy" proved strong predictors.</li>
+            <li>Clustering highlighted broad trends (e.g., rap’s word density post-1990s) but lacked precision due to genre diversity.</li>
+        </ul>
+
+        <h3>Impact</h3>
+        <p>
+            This project demonstrates how <strong>NLP and supervised learning</strong> can extract cultural 
+            and stylistic signals from raw text data. The insights could power 
+            <em>music recommendation engines, cultural analysis, or artist strategy</em>, 
+            showing how data science can make the abstract idea of “music taste” more tangible.
+        </p>
+        
+        <p>
+            If you'd like to see the full report,<a href="mailto:varoon.gupta@uwaterloo.ca">drop me a line.</a>.
+        </p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>race plan - varoon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .back-link {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            display: inline-block;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s ease;
+        }
+
+        .back-link:hover {
+            border-bottom-color: #666;
+        }
+
+        /* Password gate */
+        #gate {
+            margin-top: 4rem;
+        }
+
+        #gate p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        #gate input {
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            outline: none;
+            padding: 4px 0;
+            width: 160px;
+            color: #333;
+            background: transparent;
+        }
+
+        #gate input:focus {
+            border-bottom-color: #333;
+        }
+
+        #gate button {
+            background: none;
+            border: none;
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: #555;
+            cursor: pointer;
+            margin-left: 12px;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s ease;
+            padding: 0;
+        }
+
+        #gate button:hover {
+            border-bottom-color: #555;
+        }
+
+        #gate .error {
+            color: #999;
+            font-size: 0.85rem;
+            margin-top: 0.75rem;
+        }
+
+        /* Race plan content */
+        #content {
+            display: none;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .meta {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 3rem;
+            line-height: 1.5;
+        }
+
+        .meta strong {
+            color: #333;
+            font-weight: 500;
+        }
+
+        h2 {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 1rem;
+            margin-top: 2.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+            margin-bottom: 1rem;
+        }
+
+        th {
+            text-align: left;
+            color: #999;
+            font-weight: 400;
+            font-size: 0.8rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        td {
+            padding: 0.5rem 0;
+            color: #555;
+            border-bottom: 1px solid #f5f5f5;
+            vertical-align: top;
+        }
+
+        td:first-child {
+            color: #999;
+            font-family: 'Courier New', monospace;
+            font-size: 0.82rem;
+            white-space: nowrap;
+            padding-right: 1rem;
+            width: 90px;
+        }
+
+        td strong {
+            color: #333;
+        }
+
+        .week-target {
+            font-size: 0.82rem;
+            color: #999;
+            margin-top: 0.5rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .done {
+            text-decoration: line-through;
+            color: #bbb;
+        }
+
+        .done td {
+            color: #bbb;
+        }
+
+        .done td:first-child {
+            color: #ccc;
+        }
+
+        .section-divider {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 2.5rem 0;
+        }
+
+        .pace-table td:first-child {
+            width: 70px;
+            font-family: 'Courier New', monospace;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            color: #555;
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+            padding-left: 1rem;
+        }
+
+        ul li::before {
+            content: "—";
+            color: #ccc;
+            margin-right: 0.5rem;
+            margin-left: -1rem;
+        }
+
+        .notes {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 2rem;
+        }
+
+        .notes li {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 20px 15px; }
+            h1 { font-size: 2rem; }
+            table { font-size: 0.82rem; }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">← back</a>
+
+    <div id="gate">
+        <p>this one's private</p>
+        <div>
+            <input type="password" id="pw" placeholder="password" autofocus />
+            <button onclick="unlock()">enter</button>
+        </div>
+        <div class="error" id="err" style="display:none">not quite</div>
+    </div>
+
+    <div id="content">
+        <h1>half marathon</h1>
+        <div class="meta">
+            <strong>race:</strong> may 3, 2026 &nbsp;·&nbsp; <strong>goal:</strong> sub 1:45 (4:58/km)<br>
+            <strong>shoes:</strong> saucony endorphin pro 4
+        </div>
+
+        <!-- Week 1 -->
+        <h2>week 1 — apr 6–12 | recovery + first quality session</h2>
+        <table>
+            <tr><th>day</th><th>session</th><th>details</th></tr>
+            <tr class="done"><td>sun apr 5</td><td>19km long run</td><td>done</td></tr>
+            <tr class="done"><td>mon apr 6</td><td>rest</td><td>done</td></tr>
+            <tr class="done"><td>tue apr 7</td><td>easy ~8.2km</td><td>~5:40/km, done</td></tr>
+            <tr class="done"><td>wed apr 8</td><td><strong>tempo</strong></td><td>2km wu + 10km @ 4:53/km · avg hr 162 · endorphin pro 4 debut ✓</td></tr>
+            <tr><td>thu apr 9</td><td>rest</td><td></td></tr>
+            <tr><td>fri apr 10</td><td>easy 6–8km</td><td>~5:45–6:00/km</td></tr>
+            <tr><td>sat apr 11</td><td>rest</td><td></td></tr>
+            <tr><td><strong>sun apr 12</strong></td><td><strong>long run 15–16km</strong></td><td>5:45–6:00/km, hr under 155. fuel at 45min.</td></tr>
+        </table>
+        <div class="week-target">target ~35–40km</div>
+
+        <hr class="section-divider">
+
+        <!-- Week 2 -->
+        <h2>week 2 — apr 13–19 | sharpening</h2>
+        <table>
+            <tr><th>day</th><th>session</th><th>details</th></tr>
+            <tr><td>mon apr 13</td><td>rest</td><td>recovery from long run</td></tr>
+            <tr><td>tue apr 14</td><td>easy 6km</td><td>shake out legs</td></tr>
+            <tr><td>wed apr 15</td><td>rest</td><td></td></tr>
+            <tr><td><strong>thu apr 16</strong></td><td><strong>intervals</strong></td><td>2km wu + 6×400m @ 4:40–4:50/km + 90s jog + cd</td></tr>
+            <tr><td>fri apr 17</td><td>rest</td><td></td></tr>
+            <tr><td>sat apr 18</td><td>easy 5–6km + strides</td><td>4×100m strides, relaxed fast</td></tr>
+            <tr><td>sun apr 19</td><td>rest</td><td></td></tr>
+        </table>
+        <div class="week-target">target ~25km</div>
+
+        <hr class="section-divider">
+
+        <!-- Week 3 -->
+        <h2>week 3 — apr 20–26 | taper begins</h2>
+        <table>
+            <tr><th>day</th><th>session</th><th>details</th></tr>
+            <tr><td>mon apr 20</td><td>rest</td><td></td></tr>
+            <tr><td>tue apr 21</td><td>easy 5km</td><td>light, no pressure</td></tr>
+            <tr><td>wed apr 22</td><td>easy 5km + strides</td><td>4×100m strides</td></tr>
+            <tr><td>thu apr 23</td><td>rest</td><td></td></tr>
+            <tr><td>fri apr 24</td><td>easy 4km</td><td>just to stay loose</td></tr>
+            <tr><td>sat apr 25</td><td>rest</td><td></td></tr>
+            <tr><td><strong>sun apr 26</strong></td><td><strong>race simulation</strong></td><td>race-day breakfast → 12km: 2km easy + 8km @ 4:58/km + 2km easy. gel at 40min. dress rehearsal.</td></tr>
+        </table>
+        <div class="week-target">target ~25km (−40% from peak)</div>
+
+        <hr class="section-divider">
+
+        <!-- Race week -->
+        <h2>race week — apr 27–may 3</h2>
+        <table>
+            <tr><th>day</th><th>session</th><th>details</th></tr>
+            <tr><td>mon apr 27</td><td>rest</td><td></td></tr>
+            <tr><td>tue apr 28</td><td>easy 3km + 4 strides</td><td>last real run — feel sharp, not tired</td></tr>
+            <tr><td>wed apr 29</td><td>rest</td><td></td></tr>
+            <tr><td>thu apr 30</td><td>easy 2–3km</td><td>shakeout only</td></tr>
+            <tr><td>fri may 1</td><td>rest</td><td></td></tr>
+            <tr><td>sat may 2</td><td>rest</td><td>stay off your feet. higher carb dinner.</td></tr>
+            <tr><td><strong>sun may 3</strong></td><td><strong>race day</strong></td><td>🏁</td></tr>
+        </table>
+        <div class="week-target">target ~12km total</div>
+
+        <hr class="section-divider">
+
+        <!-- Race day -->
+        <h2>race day</h2>
+
+        <h2 style="margin-top:1.5rem; font-size:0.85rem; color:#999; font-weight:400; text-transform:uppercase; letter-spacing:0.05em;">pacing</h2>
+        <table class="pace-table">
+            <tr><th>km</th><th>pace</th><th>notes</th></tr>
+            <tr><td>0–5</td><td>5:02–5:05/km</td><td>feels easy. it should. don't go faster.</td></tr>
+            <tr><td>5–15</td><td>4:58–5:00/km</td><td>settle into race pace</td></tr>
+            <tr><td>15–19</td><td>4:55–5:00/km</td><td>hold form, don't force it</td></tr>
+            <tr><td>19–21.1</td><td>whatever you have</td><td>empty the tank</td></tr>
+        </table>
+
+        <h2 style="margin-top:1.5rem; font-size:0.85rem; color:#999; font-weight:400; text-transform:uppercase; letter-spacing:0.05em;">fueling</h2>
+        <ul>
+            <li>wake up 2.5–3hrs before gun. oatmeal + banana + toast (~400–500 cal)</li>
+            <li>km ~8–9 (~40min): gel #1 + water</li>
+            <li>km ~16 (~80min): gel #2 + water — non-negotiable</li>
+            <li>drink at every water station, small sips</li>
+        </ul>
+
+        <ul class="notes" style="margin-top:2.5rem;">
+            <li>threshold (current): ~4:55–4:57/km</li>
+            <li>peak threshold (nov 2025): ~4:47/km — fitness is coming back</li>
+            <li>longest run ever: 27.19km (dec 13, 2025) — you have the aerobic base</li>
+        </ul>
+    </div>
+
+    <script>
+        (function () {
+            if (sessionStorage.getItem('rp') === '1') show();
+
+            document.getElementById('pw').addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') unlock();
+            });
+        })();
+
+        function unlock() {
+            var val = document.getElementById('pw').value;
+            if (val === 'run') {
+                sessionStorage.setItem('rp', '1');
+                show();
+            } else {
+                document.getElementById('err').style.display = 'block';
+                document.getElementById('pw').value = '';
+            }
+        }
+
+        function show() {
+            document.getElementById('gate').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
